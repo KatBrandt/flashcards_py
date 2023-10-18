@@ -1,26 +1,28 @@
 import unittest
 from card import Card
+from turn import Turn
 
 class TestCard(unittest.TestCase):
-
-  def test_exists(self):
+  def test_it_exists(self):
     question = "What is the capital of Alaska?"
     answer = "Juneau"
     category = "Geography"
-
     card_1 = Card(question, answer, category)
-    self.assertIsInstance(card_1, Card, "Should be Card instance")
+    turn_1 = Turn("Denver", card_1)
 
-  def test_has_attributes(self):
+    self.assertIsInstance(turn_1, Turn)
+
+  def test_it_checks_guess(self):
     question = "What is the capital of Alaska?"
     answer = "Juneau"
     category = "Geography"
-
     card_1 = Card(question, answer, category)
+    turn_1 = Turn("Denver", card_1)
+    turn_2 = Turn("Juneau", card_1)
 
-    self.assertEqual(card_1.question, question)
-    self.assertEqual(card_1.answer, answer)
-    self.assertEqual(card_1.category, category)
+    self.assertFalse(turn_1.isCorrect())
+    self.assertTrue(turn_2.isCorrect())
+
 
 if __name__ == '__main__':
   unittest.main()
